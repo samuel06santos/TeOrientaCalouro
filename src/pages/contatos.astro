@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import Search from '../components/Search.astro'; import { contatos } from '../data/contatos';
+---
+<BaseLayout title="Contatos e setores | TeOrientaCalouro" description="Saiba qual setor procurar para cada assunto na UFPA.">
+  <Header /><main id="conteudo" class="container-page py-12"><p class="eyebrow">Diretório de apoio</p><h1 class="mt-2 text-4xl font-black text-forest-dark">Com quem falar?</h1><p class="mt-3 max-w-2xl leading-7 text-ink/75">Escolha o assunto mais próximo da sua dúvida. Nos casos específicos do curso, a coordenação costuma ser a melhor porta de entrada.</p><div class="mt-8 grid gap-4 md:grid-cols-2">{contatos.map((contato) => <article class="card"><p class="text-sm font-bold text-forest">{contato.assunto}</p><h2 class="mt-2 text-xl font-extrabold text-forest-dark">{contato.setor}</h2><p class="mt-2 leading-6 text-ink/70">{contato.descricao}</p><a class="mt-4 inline-block font-bold text-forest underline underline-offset-2" href={contato.url} target="_blank" rel="noreferrer">Acessar canal oficial ↗</a></article>)}</div></main><Footer /><Search />
+</BaseLayout>

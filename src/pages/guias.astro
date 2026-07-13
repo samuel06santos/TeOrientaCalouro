@@ -1,0 +1,8 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import Search from '../components/Search.astro';
+const guias = (await getCollection('guias')).sort((a, b) => a.data.ordem - b.data.ordem);
+---
+<BaseLayout title="Guias | TeOrientaCalouro" description="Guias em linguagem simples sobre a vida universitária na UFPA.">
+  <Header /><main id="conteudo" class="container-page py-12"><p class="eyebrow">Biblioteca de orientações</p><h1 class="mt-2 text-4xl font-black text-forest-dark">Guias para a sua jornada</h1><p class="mt-3 max-w-2xl leading-7 text-ink/75">Leia no seu ritmo e siga os links das fontes oficiais para verificar procedimentos atuais.</p><div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{guias.map((guia) => <a href={`/guia/${guia.id}`} class="card"><span class="text-3xl">{guia.data.icone}</span><h2 class="mt-4 text-xl font-extrabold text-forest-dark">{guia.data.titulo}</h2><p class="mt-2 leading-6 text-ink/70">{guia.data.resumo}</p><p class="mt-4 text-sm font-bold text-forest">Abrir guia →</p></a>)}</div></main><Footer /><Search />
+</BaseLayout>

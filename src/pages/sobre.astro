@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import Search from '../components/Search.astro';
+---
+<BaseLayout title="Sobre | TeOrientaCalouro" description="Sobre o guia TeOrientaCalouro.">
+  <Header /><main id="conteudo" class="container-page py-12"><div class="max-w-3xl prose-guide"><p class="eyebrow">Sobre o projeto</p><h1 class="mt-2 text-4xl font-black text-forest-dark">Informação para se orientar melhor</h1><p>O TeOrientaCalouro reúne explicações iniciais sobre a vida universitária na UFPA, em linguagem simples e com links para os canais responsáveis.</p><h2>O que este site é</h2><p>Uma camada de orientação: ele ajuda a entender por onde começar, qual setor procurar e onde conferir a informação oficial.</p><h2>O que este site não é</h2><p>Não é um canal oficial da UFPA, não substitui coordenações e não coleta login, senha, CPF ou outros dados pessoais. Datas, editais, preços e regras devem ser verificados diretamente nos portais oficiais.</p><h2>Como o conteúdo é organizado</h2><p>Os guias ficam em arquivos Markdown e os dados de contatos e locais em arquivos próprios. Assim, a atualização é simples e não exige banco de dados ou login.</p></div></main><Footer /><Search />
+</BaseLayout>

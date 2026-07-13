@@ -1,0 +1,24 @@
+---
+import '../styles/global.css';
+interface Props { title?: string; description?: string }
+const { title = 'TeOrientaCalouro', description = 'Um guia prático para começar sua jornada na UFPA.' } = Astro.props;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0f6b54" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-sun focus:px-4 focus:py-3 focus:font-bold" href="#conteudo">Pular para o conteúdo</a>
+    <slot />
+    <script>
+      if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+    </script>
+  </body>
+</html>

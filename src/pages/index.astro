@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro';
+const guias = (await getCollection('guias')).sort((a, b) => a.data.ordem - b.data.ordem);
+const destaques = guias.filter((guia) => guia.data.destaque);
+const atalhos = [
+  ['🧭', 'Sou calouro. Por onde começo?', '/guia/primeiros-passos'],
+  ['🗓️', 'Preciso acessar o SIGAA', '/guia/sigaa-e-matricula'],
+  ['🗺️', 'Quero encontrar um lugar', '/mapa'],
+  ['🤝', 'Preciso de auxílio estudantil', '/guia/assistencia-e-permanencia'],
+  ['📶', 'Quero usar o Wi-Fi', '/guia/conta-wifi'],
+  ['☎️', 'Preciso falar com um setor', '/contatos'],
+];
+---
+<BaseLayout description="Informação clara, caminhos oficiais e um mapa para quem está começando na UFPA.">
+  <Header />
+  <main id="conteudo">
+    <section class="overflow-hidden bg-forest-dark text-white">
+      <div class="container-page relative py-14 sm:py-20">
+        <div class="absolute -right-20 -top-28 h-72 w-72 rounded-full bg-sun/15 blur-2xl"></div>
+        <p class="relative eyebrow text-sun">Seu guia para a UFPA</p>
+        <h1 class="relative mt-3 max-w-3xl text-4xl font-black tracking-tight sm:text-6xl">Chegou na UFPA?<br />A gente te orienta.</h1>
+        <p class="relative mt-5 max-w-2xl text-lg leading-8 text-white/85">Informação simples, caminhos oficiais e ajuda para você começar a vida universitária com mais segurança.</p>
+        <div class="relative mt-8 flex flex-wrap gap-3">
+          <a class="rounded-xl bg-sun px-5 py-3 font-extrabold text-ink hover:bg-yellow-300" href="/guia/primeiros-passos">Começar agora</a>
+          <button data-search-open class="rounded-xl border border-white/35 px-5 py-3 font-bold hover:bg-white/10">Tenho uma dúvida</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container-page py-12">
+      <p class="eyebrow">O que você precisa resolver hoje?</p>
+      <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {atalhos.map(([icone, texto, href]) => <a href={href} class="card flex items-center gap-4 p-4 font-bold"><span class="grid h-11 w-11 place-items-center rounded-xl bg-emerald-50 text-xl" aria-hidden="true">{icone}</span><span>{texto}</span><span class="ml-auto text-forest" aria-hidden="true">→</span></a>)}
+      </div>
+    </section>
+
+    <section class="bg-white py-12">
+      <div class="container-page">
+        <div class="flex flex-wrap items-end justify-between gap-3"><div><p class="eyebrow">Para começar</p><h2 class="mt-1 text-3xl font-black text-forest-dark">Guias mais acessados</h2></div><a class="font-bold text-forest underline underline-offset-4" href="/guias">Ver todos os guias</a></div>
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+          {destaques.map((guia) => <a href={`/guia/${guia.id}`} class="card group"><span class="text-3xl" aria-hidden="true">{guia.data.icone}</span><h3 class="mt-4 text-xl font-extrabold text-forest-dark group-hover:text-forest">{guia.data.titulo}</h3><p class="mt-2 leading-6 text-ink/70">{guia.data.resumo}</p><span class="mt-4 block font-bold text-forest">Ler guia →</span></a>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="container-page grid gap-6 py-12 lg:grid-cols-[1.2fr_.8fr]">
+      <div class="rounded-2xl bg-emerald-100 p-7"><p class="eyebrow">Sem se perder</p><h2 class="mt-2 text-3xl font-black text-forest-dark">Mapa do Campus Guamá</h2><p class="mt-3 max-w-xl leading-7 text-ink/80">Encontre portões, Biblioteca Central, RU, Reitoria e pontos de referência. Cada local tem uma descrição e atalho para abrir a rota.</p><a href="/mapa" class="mt-5 inline-block rounded-xl bg-forest px-5 py-3 font-bold text-white hover:bg-forest-dark">Abrir mapa</a></div>
+      <aside class="rounded-2xl border border-amber-300 bg-amber-50 p-7"><p class="font-extrabold text-amber-900">Atenção aos prazos</p><p class="mt-2 leading-6 text-amber-950/80">Editais, calendários, horários e valores podem mudar. Use este site para se orientar e confirme a informação na fonte oficial antes de tomar decisões.</p></aside>
+    </section>
+  </main>
+  <Footer /><Search />
+</BaseLayout>

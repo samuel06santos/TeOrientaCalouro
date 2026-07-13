@@ -1,0 +1,16 @@
+---
+import { locais } from '../data/locais';
+---
+<div class="overflow-hidden rounded-2xl border border-emerald-950/10 bg-white shadow-sm">
+  <div id="mapa-ufpa" class="h-96 w-full" aria-label="Mapa com locais importantes da UFPA"></div>
+</div>
+<script is:inline id="mapa-dados" type="application/json" set:html={JSON.stringify(locais)}></script>
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+  type MapaLocal = { nome: string; lat: number; lng: number; descricao: string; rota: string };
+  const locais: MapaLocal[] = JSON.parse(document.querySelector('#mapa-dados')?.textContent || '[]');
+  const map = L.map('mapa-ufpa', { scrollWheelZoom: false }).setView([-1.475, -48.4535], 15);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  locais.forEach((local) => L.circleMarker([local.lat, local.lng], { radius: 9, color: '#094b3b', fillColor: '#ffd55a', fillOpacity: 1, weight: 2 }).addTo(map).bindPopup(`<strong>${local.nome}</strong><br>${local.descricao}<br><a href="${local.rota}" target="_blank" rel="noreferrer">Abrir rota</a>`));
+</script>

@@ -1,0 +1,17 @@
+---
+const path = Astro.url.pathname;
+---
+<header class="border-b border-emerald-950/10 bg-paper/95 backdrop-blur">
+  <div class="container-page flex min-h-18 items-center justify-between gap-3 py-3">
+    <a href="/" class="flex items-center gap-2 font-black text-forest-dark" aria-label="Página inicial do TeOrientaCalouro">
+      <img src="/icon.svg" alt="" class="h-10 w-10" />
+      <span class="leading-4">TeOrienta<br /><span class="text-forest">Calouro</span></span>
+    </a>
+    <nav aria-label="Navegação principal" class="hidden items-center gap-5 text-sm font-bold md:flex">
+      <a class:list={["hover:text-forest", path.startsWith('/guia') && 'text-forest']} href="/guia/primeiros-passos">Guias</a>
+      <a class:list={["hover:text-forest", path === '/mapa' && 'text-forest']} href="/mapa">Mapa</a>
+      <a class:list={["hover:text-forest", path === '/contatos' && 'text-forest']} href="/contatos">Contatos</a>
+    </nav>
+    <button data-search-open class="rounded-xl bg-forest px-3 py-2 text-sm font-bold text-white hover:bg-forest-dark" aria-haspopup="dialog">Buscar <span class="hidden sm:inline">no guia</span></button>
+  </div>
+</header>
