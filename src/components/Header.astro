@@ -1,17 +1,18 @@
 ---
 const path = Astro.url.pathname;
+import { comBase } from '../utils/url';
 ---
 <header class="border-b border-blue-950/10 bg-paper/95 backdrop-blur">
   <div class="container-page grid items-center gap-3 py-3 md:grid-cols-[auto_minmax(16rem,30rem)_auto]">
-    <a href="/" class="flex items-center gap-2 font-black text-forest-dark" aria-label="Página inicial do TeOrientaCalouro">
-      <img src="/icon.svg" alt="" class="h-10 w-10" />
+    <a href={comBase()} class="flex items-center gap-2 font-black text-forest-dark" aria-label="Página inicial do TeOrientaCalouro">
+      <img src={comBase('icon.svg')} alt="" class="h-10 w-10" />
       <span class="leading-4">TeOrienta<br /><span class="text-forest">Calouro</span></span>
     </a>
     <label class="order-3 md:order-2"><span class="sr-only">Buscar no guia</span><input data-search-open class="w-full rounded-xl border border-blue-950/15 bg-white px-4 py-2.5 text-sm shadow-sm placeholder:text-ink/55 focus:border-forest" type="search" placeholder="Busque uma dúvida, serviço ou setor" readonly aria-haspopup="dialog" /></label>
     <nav aria-label="Navegação principal" class="order-2 flex items-center justify-end gap-3 text-sm font-bold md:order-3 md:gap-5">
-      <a class:list={["hover:text-forest", path.startsWith('/guia') && 'text-forest']} href="/guia/primeiros-passos">Guias</a>
-      <a class:list={["hover:text-forest", path === '/mapa' && 'text-forest']} href="/mapa">Mapa</a>
-      <a class:list={["hover:text-forest", path === '/contatos' && 'text-forest']} href="/contatos">Contatos</a>
+      <a class:list={["hover:text-forest", path.includes('/guia') && 'text-forest']} href={comBase('guia/primeiros-passos')}>Guias</a>
+      <a class:list={["hover:text-forest", path.includes('/mapa') && 'text-forest']} href={comBase('mapa')}>Mapa</a>
+      <a class:list={["hover:text-forest", path.includes('/contatos') && 'text-forest']} href={comBase('contatos')}>Contatos</a>
     </nav>
   </div>
 </header>

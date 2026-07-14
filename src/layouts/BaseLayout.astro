@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { comBase } from '../utils/url';
 interface Props { title?: string; description?: string }
 const { title = 'TeOrientaCalouro', description = 'Um guia prático para começar sua jornada na UFPA.' } = Astro.props;
 ---
@@ -9,16 +10,17 @@ const { title = 'TeOrientaCalouro', description = 'Um guia prático para começa
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0f6b54" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#062d5d" />
+    <link rel="manifest" href={comBase('manifest.webmanifest')} />
+    <link rel="icon" href={comBase('icon.svg')} type="image/svg+xml" />
     <title>{title}</title>
   </head>
   <body>
     <a class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-sun focus:px-4 focus:py-3 focus:font-bold" href="#conteudo">Pular para o conteúdo</a>
     <slot />
     <script>
-      if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+      const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+      if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register(`${base}sw.js`));
     </script>
   </body>
 </html>

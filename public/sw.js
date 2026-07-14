@@ -1,5 +1,6 @@
 const CACHE = 'teorientacalouro-v2';
-const APP_SHELL = ['/', '/manifest.webmanifest', '/icon.svg'];
+const BASE = self.registration.scope;
+const APP_SHELL = [BASE, `${BASE}manifest.webmanifest`, `${BASE}icon.svg`];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(APP_SHELL)));
@@ -17,5 +18,5 @@ self.addEventListener('fetch', (event) => {
     const copy = response.clone();
     caches.open(CACHE).then((cache) => cache.put(event.request, copy));
     return response;
-  }).catch(() => caches.match('/'))));
+  }).catch(() => caches.match(BASE))));
 });

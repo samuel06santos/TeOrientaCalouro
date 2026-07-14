@@ -11,11 +11,12 @@
   const dialog = document.querySelector<HTMLDialogElement>('[data-search-dialog]')!;
   const input = document.querySelector<HTMLInputElement>('[data-search-input]')!;
   const results = document.querySelector<HTMLUListElement>('[data-search-results]')!;
+  const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
   let fuse: Fuse<{ titulo: string; resumo: string; tags: string[]; url: string }> | undefined;
   const escape = (text: string) => text.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[character]!));
   async function openSearch() {
     dialog.showModal(); input.focus();
-    if (!fuse) fuse = new Fuse(await (await fetch('/search.json')).json(), { keys: ['titulo', 'resumo', 'tags'], threshold: 0.35 });
+    if (!fuse) fuse = new Fuse(await (await fetch(`${base}search.json`)).json(), { keys: ['titulo', 'resumo', 'tags'], threshold: 0.35 });
   }
   document.querySelectorAll('[data-search-open]').forEach((button) => button.addEventListener('click', openSearch));
   document.querySelector('[data-search-close]')?.addEventListener('click', () => dialog.close());
