@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-forest: #0f6b54;
-  --color-forest-dark: #094b3b;
-  --color-sun: #ffd55a;
-  --color-ink: #17312a;
-  --color-paper: #f7f9f5;
+  --color-forest: #07559b;
+  --color-forest-dark: #062d5d;
+  --color-sun: #d5263d;
+  --color-ink: #172b4d;
+  --color-paper: #f7f9fd;
   --font-sans: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
 body { @apply bg-paper text-ink antialiased; }
-:focus-visible { outline: 3px solid #f2ae00; outline-offset: 3px; }
+:focus-visible { outline: 3px solid #d5263d; outline-offset: 3px; }
 .container-page { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
-.card { @apply rounded-2xl border border-emerald-950/10 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md; }
+.card { @apply rounded-2xl border border-blue-950/10 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md; }
 .eyebrow { @apply text-sm font-bold uppercase tracking-wider text-forest; }
 .prose-guide h2 { @apply mt-9 text-2xl font-extrabold text-forest-dark; }
 .prose-guide h3 { @apply mt-6 text-xl font-bold; }
@@ -22,3 +22,5 @@ body { @apply bg-paper text-ink antialiased; }
 .prose-guide ul { @apply list-disc; }
 .prose-guide ol { @apply list-decimal; }
 .prose-guide a { @apply font-semibold text-forest underline decoration-sun decoration-2 underline-offset-2; }
+.brand-pattern { background-image: radial-gradient(circle at 90% 10%, rgb(255 255 255 / 0.16) 0 2px, transparent 2.5px), linear-gradient(135deg, transparent 0 47%, rgb(213 38 61 / 0.38) 47% 49%, transparent 49% 100%); background-size: 22px 22px, auto; }
+.guide-index { @apply grid h-11 w-11 shrink-0 place-items-center rounded-full bg-blue-50 text-sm font-black tracking-wide text-forest; }

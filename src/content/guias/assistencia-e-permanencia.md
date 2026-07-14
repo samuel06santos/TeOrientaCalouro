@@ -1,7 +1,7 @@
 ---
 titulo: "Assistência estudantil e permanência"
 resumo: "Saiba onde acompanhar auxílios, editais, RU e serviços de acolhimento."
-icone: "🤝"
+icone: "04"
 ordem: 4
 destaque: true
 atualizadoEm: "13 de julho de 2026"

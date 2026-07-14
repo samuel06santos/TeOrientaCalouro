@@ -1,7 +1,7 @@
 ---
 titulo: "SIGAA e matrícula sem mistério"
 resumo: "Entenda o sistema acadêmico, as disciplinas e o que fazer quando algo não aparece."
-icone: "🗓️"
+icone: "02"
 ordem: 2
 destaque: true
 atualizadoEm: "13 de julho de 2026"

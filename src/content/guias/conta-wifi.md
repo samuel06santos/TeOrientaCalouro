@@ -1,7 +1,7 @@
 ---
 titulo: "Conta institucional, Wi-Fi e Sagitta"
 resumo: "Acesso digital seguro para e-mail, rede sem fio e serviços da Universidade."
-icone: "📶"
+icone: "03"
 ordem: 3
 destaque: true
 atualizadoEm: "13 de julho de 2026"

@@ -1,7 +1,7 @@
 ---
 titulo: "Primeiros passos na UFPA"
 resumo: "Uma trilha simples para se organizar antes e durante as primeiras aulas."
-icone: "👣"
+icone: "01"
 ordem: 1
 destaque: true
 atualizadoEm: "13 de julho de 2026"

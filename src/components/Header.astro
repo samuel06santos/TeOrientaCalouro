@@ -1,17 +1,17 @@
 ---
 const path = Astro.url.pathname;
 ---
-<header class="border-b border-emerald-950/10 bg-paper/95 backdrop-blur">
-  <div class="container-page flex min-h-18 items-center justify-between gap-3 py-3">
+<header class="border-b border-blue-950/10 bg-paper/95 backdrop-blur">
+  <div class="container-page grid items-center gap-3 py-3 md:grid-cols-[auto_minmax(16rem,30rem)_auto]">
     <a href="/" class="flex items-center gap-2 font-black text-forest-dark" aria-label="Página inicial do TeOrientaCalouro">
       <img src="/icon.svg" alt="" class="h-10 w-10" />
       <span class="leading-4">TeOrienta<br /><span class="text-forest">Calouro</span></span>
     </a>
-    <nav aria-label="Navegação principal" class="hidden items-center gap-5 text-sm font-bold md:flex">
+    <label class="order-3 md:order-2"><span class="sr-only">Buscar no guia</span><input data-search-open class="w-full rounded-xl border border-blue-950/15 bg-white px-4 py-2.5 text-sm shadow-sm placeholder:text-ink/55 focus:border-forest" type="search" placeholder="Busque uma dúvida, serviço ou setor" readonly aria-haspopup="dialog" /></label>
+    <nav aria-label="Navegação principal" class="order-2 flex items-center justify-end gap-3 text-sm font-bold md:order-3 md:gap-5">
       <a class:list={["hover:text-forest", path.startsWith('/guia') && 'text-forest']} href="/guia/primeiros-passos">Guias</a>
       <a class:list={["hover:text-forest", path === '/mapa' && 'text-forest']} href="/mapa">Mapa</a>
       <a class:list={["hover:text-forest", path === '/contatos' && 'text-forest']} href="/contatos">Contatos</a>
     </nav>
-    <button data-search-open class="rounded-xl bg-forest px-3 py-2 text-sm font-bold text-white hover:bg-forest-dark" aria-haspopup="dialog">Buscar <span class="hidden sm:inline">no guia</span></button>
   </div>
 </header>
