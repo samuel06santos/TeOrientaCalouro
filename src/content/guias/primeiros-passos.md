@@ -6,7 +6,7 @@ ordem: 1
 destaque: true
 atualizadoEm: "13 de julho de 2026"
 tags: ["calouro", "começar", "matrícula", "primeira semana"]
-fonte: "https://www.ufpa.br/"
+fonte: "https://ufpa.br/"
 fonteNome: "Portal da UFPA"
 ---
 

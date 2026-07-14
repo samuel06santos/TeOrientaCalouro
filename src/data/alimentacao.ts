@@ -1,6 +1,6 @@
 import { rotaGoogleCoordenadas, type PontoServico } from './mapa-servicos';
 
-export const fonteCardapio = 'https://sigaest.ufpa.br/sigaest/programas.php';
+export const fonteCardapio = 'https://proaes.ufpa.br/cardapio';
 export const fonteRu = 'https://ufpa.br/restaurante-universitario-da-ufpa-reabre-no-dia-17-de-janeiro-com-feijoada-no-cardapio/';
 export const fonteAcessoRu = 'https://portal.ufpa.br/index.php/ultimas-noticias2/14134-ufpa-inicia-segunda-fase-de-implementacao-do-acesso-digital-aos-restaurantes-universitarios';
 

@@ -6,7 +6,7 @@ ordem: 7
 destaque: false
 atualizadoEm: "13 de julho de 2026"
 tags: ["assédio", "segurança", "violência", "apoio psicológico", "denúncia", "emergência"]
-fonte: "https://www.ufpa.br/"
+fonte: "https://ufpa.br/"
 fonteNome: "Portal da UFPA"
 ---
 
