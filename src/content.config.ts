@@ -12,7 +12,7 @@ const guias = defineCollection({
     destaque: z.boolean().default(false),
     atualizadoEm: z.string(),
     tags: z.array(z.string()),
-    fonte: z.string().url(),
+    fonte: z.url(),
     fonteNome: z.string(),
   }),
 });
