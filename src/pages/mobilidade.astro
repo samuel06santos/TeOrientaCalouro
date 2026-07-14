@@ -5,72 +5,83 @@ import Header from '../components/Header.astro';
 import Icon from '../components/Icon.astro';
 import MapaServicos from '../components/MapaServicos.astro';
 import Search from '../components/Search.astro';
-import { paradasCircular, regrasCircular, tracadoCircular } from '../data/mobilidade';
+import { horariosCircular, linksMobilidade, paradasCircular, regrasCircular, tracadoCircular } from '../data/mobilidade';
 
-const fonteOficial = 'https://ufpa.br/campus-guama-conheca-os-principais-acessos-da-cidade-universitaria-da-ufpa/';
-const setores = ['Básico', 'Profissional', 'Saúde'];
+const setores = ['Básico', 'Profissional', 'Saúde', 'PCT Guamá'];
 ---
-<BaseLayout title="Mobilidade interna | TeOrientaCalouro" description="Rota, paradas e regras de utilização do ônibus Circular no Campus Guamá da UFPA.">
+<BaseLayout title="Mobilidade interna | TeOrientaCalouro" description="Rota, horários, paradas e aplicativos do ônibus Circular no Campus Guamá da UFPA.">
   <Header />
   <main id="conteudo">
     <section class="bg-forest-dark py-12 text-white sm:py-16">
       <div class="container-page">
         <span class="section-icon bg-white/10 text-white"><Icon nome="mobilidade" /></span>
         <p class="eyebrow mt-5 text-white/75">Mobilidade interna</p>
-        <h1 class="mt-2 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">Entenda o Circular da UFPA</h1>
-        <p class="mt-4 max-w-2xl text-lg leading-8 text-white/80">Veja as paradas sinalizadas, acompanhe o percurso de referência e saiba como utilizar o transporte dentro do campus.</p>
+        <h1 class="mt-2 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">Circular UFPA: rota, horários e aplicativos</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-8 text-white/80">Acompanhe o itinerário com 31 paradas, consulte a grade de dias úteis e escolha uma ferramenta para verificar a localização do ônibus.</p>
       </div>
     </section>
 
     <section class="container-page py-12">
-      <p class="eyebrow">Como funciona</p>
-      <h2 class="mt-2 text-3xl font-black text-forest-dark">Regras essenciais</h2>
-      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {regrasCircular.map((regra) => (
-          <article class="card">
-            <span class="section-icon"><Icon nome={regra.icone} /></span>
-            <h3 class="mt-4 text-lg font-extrabold text-forest-dark">{regra.titulo}</h3>
-            <p class="mt-2 leading-6 text-ink/70">{regra.texto}</p>
-          </article>
-        ))}
+      <div class="grid gap-6 lg:grid-cols-[1.05fr_.95fr]">
+        <div>
+          <p class="eyebrow">Grade informada pelo Moovit</p>
+          <h2 class="mt-2 text-3xl font-black text-forest-dark">De 20 em 20 minutos</h2>
+          <div class="mt-5 grid gap-4 sm:grid-cols-3">
+            <article class="card"><span class="section-icon"><Icon nome="calendario" /></span><p class="mt-4 text-sm font-bold text-forest">Dias</p><p class="mt-1 text-lg font-extrabold text-forest-dark">{horariosCircular.dias}</p></article>
+            <article class="card"><span class="section-icon"><Icon nome="horario" /></span><p class="mt-4 text-sm font-bold text-forest">Operação</p><p class="mt-1 text-lg font-extrabold text-forest-dark">{horariosCircular.inicio}–{horariosCircular.fim}</p></article>
+            <article class="card"><span class="section-icon"><Icon nome="rota" /></span><p class="mt-4 text-sm font-bold text-forest">Frequência</p><p class="mt-1 text-lg font-extrabold text-forest-dark">{horariosCircular.intervalo}</p></article>
+          </div>
+          <details class="mt-5 rounded-2xl border border-blue-950/10 bg-white p-5">
+            <summary class="cursor-pointer font-extrabold text-forest-dark">Ver partidas do terminal</summary>
+            <div class="mt-4 grid grid-cols-3 gap-2 text-center text-sm sm:grid-cols-6">{horariosCircular.partidas.map((horario) => <span class="rounded-lg bg-blue-50 px-2 py-2 font-bold text-forest">{horario}</span>)}</div>
+          </details>
+        </div>
+        <aside class="rounded-2xl border border-red-200 bg-red-50 p-6 sm:p-7">
+          <div class="flex items-center gap-3"><span class="section-icon bg-white text-sun"><Icon nome="informacao" /></span><h2 class="text-2xl font-black text-red-950">Antes de esperar</h2></div>
+          <p class="mt-4 leading-7 text-red-950/80">O Moovit informa operação em dias úteis, frequência de 20 minutos e viagem de aproximadamente 21 minutos. A localização e os horários podem sofrer alterações; confira o tempo real no aplicativo ou no site.</p>
+          <div class="mt-5 flex flex-wrap gap-3"><a class="inline-flex items-center gap-2 rounded-xl bg-sun px-4 py-3 font-extrabold text-white hover:bg-red-700" href={linksMobilidade.moovitRota} target="_blank" rel="noreferrer">Ver rota no Moovit <Icon nome="avancar" /></a><a class="inline-flex items-center gap-2 rounded-xl border border-red-300 px-4 py-3 font-bold text-red-950 hover:bg-white" href={linksMobilidade.moovitHorarios} target="_blank" rel="noreferrer">Ver horários <Icon nome="horario" /></a></div>
+        </aside>
       </div>
-      <div class="status-note mt-5"><strong>Horário:</strong> não foi encontrado um quadro oficial atualizado de partidas em 2026. Planeje uma margem de tempo e confirme com a Prefeitura Multicampi ou na sinalização do terminal. O site não reaproveita como atual o horário histórico de 7h às 22h.</div>
+      <p class="status-note mt-5"><strong>Nota sobre fontes:</strong> a grade acima é a publicação operacional do Moovit consultada em 14 de julho de 2026. A ASCOM/UFPA também descreve o serviço como gratuito, com dois ônibus em sentidos opostos e operação histórica das 7h às 22h; comunicados do operador devem prevalecer.</p>
     </section>
 
     <section class="border-y border-blue-950/10 bg-white py-12">
       <div class="container-page">
-        <p class="eyebrow">Sentido do percurso</p>
-        <h2 class="mt-2 text-3xl font-black text-forest-dark">Do Básico ao Setor Saúde</h2>
-        <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-          {['Setor Básico', 'Setor Profissional', 'Setor Saúde', 'PCT Guamá'].map((setor, indice, lista) => (
-            <>
-              <div class="flex-1 rounded-xl border border-blue-950/10 bg-paper p-4 text-center font-extrabold text-forest-dark">{setor}</div>
-              {indice < lista.length - 1 && <Icon nome="avancar" classe="self-center text-xl text-sun sm:rotate-0 rotate-90" />}
-            </>
-          ))}
+        <p class="eyebrow">Como utilizar</p>
+        <h2 class="mt-2 text-3xl font-black text-forest-dark">Regras e características do serviço</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {regrasCircular.map((regra) => <article class="card"><span class="section-icon"><Icon nome={regra.icone} /></span><h3 class="mt-4 text-lg font-extrabold text-forest-dark">{regra.titulo}</h3><p class="mt-2 leading-6 text-ink/70">{regra.texto}</p></article>)}
         </div>
-        <p class="mt-4 max-w-3xl text-sm leading-6 text-ink/70">Essa ordem resume as áreas atendidas divulgadas pela UFPA. No mapa, a linha tracejada conecta os pontos cadastrados e funciona como orientação visual; desvios operacionais e o sentido do veículo podem variar.</p>
-        <div class="mt-7"><MapaServicos id="mapa-circular" pontos={paradasCircular} linha={tracadoCircular} rotulo="Mapa da rota de referência e das paradas do Circular da UFPA" /></div>
+        <div class="mt-6 rounded-2xl bg-paper p-5"><p class="font-extrabold text-forest-dark">Percurso e segurança</p><p class="mt-2 leading-7 text-ink/75">O circuito passa pelos setores Básico, Profissional, Saúde e PCT Guamá. A referência histórica da UFPA aponta duração de cerca de 40 minutos entre a garagem e o Portão do Bettina, limite de 30 km/h e permanência maior no terminal e no HUBFS.</p></div>
       </div>
     </section>
 
     <section class="container-page py-12">
-      <p class="eyebrow">Pontos de parada</p>
-      <h2 class="mt-2 text-3xl font-black text-forest-dark">Paradas por setor</h2>
-      <div class="mt-7 grid gap-6 lg:grid-cols-3">
-        {setores.map((setor) => (
-          <section class="rounded-2xl border border-blue-950/10 bg-white p-5">
-            <h3 class="flex items-center gap-3 text-xl font-extrabold text-forest-dark"><Icon nome="local" classe="text-sun" /> Setor {setor}</h3>
-            <ul class="mt-4 divide-y divide-blue-950/10">
-              {paradasCircular.filter((parada) => parada.setor === setor).map((parada) => (
-                <li class="py-3"><a class="font-bold text-forest hover:underline" href={parada.rota} target="_blank" rel="noreferrer">{parada.nome}</a><p class="mt-1 text-sm leading-5 text-ink/65">{parada.descricao}</p></li>
-              ))}
-            </ul>
-          </section>
-        ))}
+      <p class="eyebrow">Itinerário atualizado</p>
+      <h2 class="mt-2 text-3xl font-black text-forest-dark">31 paradas no sentido circular</h2>
+      <p class="mt-3 max-w-3xl leading-7 text-ink/75">A sequência abaixo segue os nomes publicados pelo Moovit. Os pontos do mapa são referências cartográficas; confirme a placa da parada no local.</p>
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+        {['Setor Básico', 'Setor Profissional', 'Setor Saúde', 'PCT Guamá'].map((setor, indice, lista) => <><div class="flex-1 rounded-xl border border-blue-950/10 bg-white p-4 text-center font-extrabold text-forest-dark">{setor}</div>{indice < lista.length - 1 && <Icon nome="avancar" classe="self-center rotate-90 text-xl text-sun sm:rotate-0" />}</>)}
       </div>
-      <p class="status-note mt-6"><strong>Precisão dos pontos:</strong> coordenadas do OpenStreetMap verificadas em 13 de julho de 2026. Embarque somente onde houver placa do Circular; a sinalização física prevalece sobre o mapa.</p>
-      <a class="mt-5 inline-flex items-center gap-2 font-bold text-forest underline underline-offset-2" href={fonteOficial} target="_blank" rel="noreferrer">Ler orientação oficial da UFPA sobre o Circular <Icon nome="avancar" /></a>
+      <div class="mt-7"><MapaServicos id="mapa-circular" pontos={paradasCircular} linha={tracadoCircular} rotulo="Mapa das 31 paradas e do itinerário do Circular UFPA" /></div>
+      <div class="mt-8 grid gap-6 lg:grid-cols-4">{setores.map((setor) => <section class="rounded-2xl border border-blue-950/10 bg-white p-5"><h3 class="flex items-center gap-3 text-xl font-extrabold text-forest-dark"><Icon nome="local" classe="text-sun" /> {setor}</h3><ol class="mt-4 list-decimal space-y-2 pl-5 text-sm leading-5 text-ink/75">{paradasCircular.filter((parada) => parada.setor === setor).map((parada) => <li><a class="font-bold text-forest hover:underline" href={parada.rota} target="_blank" rel="noreferrer">{parada.nome}</a></li>)}</ol></section>)}</div>
+    </section>
+
+    <section class="border-y border-blue-950/10 bg-white py-12">
+      <div class="container-page">
+        <p class="eyebrow">Acompanhe pelo celular</p>
+        <h2 class="mt-2 text-3xl font-black text-forest-dark">Aplicativos úteis</h2>
+        <div class="mt-6 grid gap-4 lg:grid-cols-3">
+          <article class="card"><span class="section-icon"><Icon nome="mobilidade" /></span><h3 class="mt-4 text-xl font-extrabold text-forest-dark">Circular UFPA</h3><p class="mt-2 leading-6 text-ink/70">Projeto do LASSE/PETi divulgado pela UFPA para acompanhar a localização do ônibus no campus em tempo real. Requer internet e localização ativada.</p><a class="mt-4 inline-flex items-center gap-2 font-bold text-forest underline underline-offset-2" href={linksMobilidade.circularPlay} target="_blank" rel="noreferrer">Abrir na Play Store <Icon nome="avancar" /></a><a class="mt-2 block text-sm font-semibold text-ink/65 underline" href={linksMobilidade.fonteAppCircular} target="_blank" rel="noreferrer">Ler notícia da UFPA</a></article>
+          <article class="card"><span class="section-icon"><Icon nome="mapa" /></span><h3 class="mt-4 text-xl font-extrabold text-forest-dark">Olha o Ônibus</h3><p class="mt-2 leading-6 text-ink/70">Aplicativo colaborativo para planejar viagens, visualizar rotas e compartilhar a localização de ônibus. A versão atual informa cobertura colaborativa em Belém.</p><a class="mt-4 inline-flex items-center gap-2 font-bold text-forest underline underline-offset-2" href={linksMobilidade.olhaOnibusPlay} target="_blank" rel="noreferrer">Abrir na Play Store <Icon nome="avancar" /></a><a class="mt-2 block text-sm font-semibold text-ink/65 underline" href={linksMobilidade.fonteOlhaOnibus} target="_blank" rel="noreferrer">Ler notícia da UFPA</a></article>
+          <article class="card"><span class="section-icon"><Icon nome="rota" /></span><h3 class="mt-4 text-xl font-extrabold text-forest-dark">Moovit</h3><p class="mt-2 leading-6 text-ink/70">Página com os 31 pontos, grade de dias úteis, frequência, duração estimada e alertas de serviço da linha UFPA.</p><a class="mt-4 inline-flex items-center gap-2 font-bold text-forest underline underline-offset-2" href={linksMobilidade.moovitRota} target="_blank" rel="noreferrer">Abrir rota e mapa <Icon nome="avancar" /></a></article>
+        </div>
+        <p class="status-note mt-5"><strong>Disponibilidade:</strong> Circular UFPA é um projeto divulgado pela UFPA em 2017; a página da Play Store pode depender da manutenção do aplicativo. Olha o Ônibus possui página ativa na Play Store e foi atualizado em setembro de 2025.</p>
+      </div>
+    </section>
+
+    <section class="container-page py-10">
+      <div class="status-note"><strong>Fontes consultadas em 14 de julho de 2026:</strong> <a class="font-bold text-forest underline" href={linksMobilidade.moovitRota} target="_blank" rel="noreferrer">Moovit — rota</a>, <a class="font-bold text-forest underline" href={linksMobilidade.moovitHorarios} target="_blank" rel="noreferrer">Moovit — horários</a>, <a class="font-bold text-forest underline" href={linksMobilidade.fonteUfpaCircular} target="_blank" rel="noreferrer">ASCOM/UFPA — Circular</a>, <a class="font-bold text-forest underline" href={linksMobilidade.fonteAppCircular} target="_blank" rel="noreferrer">UFPA — Circular UFPA</a> e <a class="font-bold text-forest underline" href={linksMobilidade.fonteOlhaOnibus} target="_blank" rel="noreferrer">UFPA — Olha o Ônibus</a>.</div>
     </section>
   </main>
   <Footer />

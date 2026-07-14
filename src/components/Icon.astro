@@ -9,10 +9,12 @@ import {
   faCircleInfo,
   faClock,
   faGraduationCap,
+  faGaugeHigh,
   faHeart,
   faIdCard,
   faLandmark,
   faLocationDot,
+  faMagnifyingGlass,
   faMapLocationDot,
   faMoneyBillTransfer,
   faRoute,
@@ -52,7 +54,9 @@ const icones = {
   banheiro: faToilet,
   acessibilidade: faWheelchairMove,
   wifi: faWifi,
+  velocidade: faGaugeHigh,
   avancar: faArrowRight,
+  pesquisar: faMagnifyingGlass,
 } as const;
 
 type NomeIcone = keyof typeof icones;
@@ -60,14 +64,15 @@ interface Props {
   nome: NomeIcone | string;
   classe?: string;
   rotulo?: string;
+  class?: string;
 }
 
-const { nome, classe = '', rotulo } = Astro.props;
+const { nome, classe = '', rotulo, class: classeCss = '' } = Astro.props;
 const definicao = icones[nome as NomeIcone] ?? faCircleInfo;
 const svg = icon(definicao).html.join('');
 ---
 <span
-  class:list={['site-icon', classe]}
+  class:list={['site-icon', classe, classeCss]}
   aria-hidden={rotulo ? undefined : 'true'}
   role={rotulo ? 'img' : undefined}
   aria-label={rotulo}
