@@ -4,16 +4,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Search from '../components/Search.astro';
+import Icon from '../components/Icon.astro';
 import { comBase } from '../utils/url';
 const guias = (await getCollection('guias')).sort((a, b) => a.data.ordem - b.data.ordem);
 const destaques = guias.filter((guia) => guia.data.destaque);
 const atalhos = [
-  ['01', 'Sou calouro. Por onde começo?', 'guia/primeiros-passos'],
-  ['02', 'Preciso acessar o SIGAA', 'guia/sigaa-e-matricula'],
-  ['03', 'Quero encontrar um lugar', 'mapa'],
-  ['04', 'Preciso de auxílio estudantil', 'guia/assistencia-e-permanencia'],
-  ['05', 'Quero usar o Wi-Fi', 'guia/conta-wifi'],
-  ['06', 'Preciso falar com um setor', 'contatos'],
+  { icone: 'rota', texto: 'Sou calouro. Por onde começo?', href: 'guia/primeiros-passos' },
+  { icone: 'calendario', texto: 'Preciso acessar o SIGAA', href: 'guia/sigaa-e-matricula' },
+  { icone: 'mapa', texto: 'Quero encontrar um lugar', href: 'mapa' },
+  { icone: 'suporte', texto: 'Preciso de auxílio estudantil', href: 'guia/assistencia-e-permanencia' },
+  { icone: 'wifi', texto: 'Quero usar o Wi-Fi', href: 'guia/conta-wifi' },
+  { icone: 'contato', texto: 'Preciso falar com um setor', href: 'contatos' },
+];
+const eixos = [
+  { icone: 'alimentacao', titulo: 'Alimentação', texto: 'Cardápio do RU, horários, acesso e pontos de lanche no campus.', href: 'alimentacao' },
+  { icone: 'mobilidade', titulo: 'Mobilidade interna', texto: 'Rota do circular, paradas sinalizadas e regras de utilização.', href: 'mobilidade' },
+  { icone: 'banco', titulo: 'Infraestrutura', texto: 'Bancos, caixas, bibliotecas e secretarias com horários e rotas.', href: 'infraestrutura' },
 ];
 ---
 <BaseLayout description="Informação clara, caminhos oficiais e um mapa para quem está começando na UFPA.">
@@ -22,12 +28,12 @@ const atalhos = [
     <section class="brand-pattern overflow-hidden bg-forest-dark text-white">
       <div class="container-page relative py-14 sm:py-20">
         <div class="absolute -right-20 -top-28 h-72 w-72 rounded-full bg-sun/20 blur-2xl"></div>
-        <p class="relative eyebrow text-sun">Seu guia para a UFPA</p>
+        <p class="relative eyebrow text-white">Seu guia para a UFPA</p>
         <h1 class="relative mt-3 max-w-3xl text-4xl font-black tracking-tight sm:text-6xl">Chegou na UFPA?<br />A gente te orienta.</h1>
         <p class="relative mt-5 max-w-2xl text-lg leading-8 text-white/85">Informação simples, caminhos oficiais e ajuda para você começar a vida universitária com mais segurança.</p>
         <div class="relative mt-8 flex flex-wrap gap-3">
           <a class="rounded-xl bg-sun px-5 py-3 font-extrabold text-white hover:bg-red-700" href={comBase('guia/primeiros-passos')}>Começar agora</a>
-          <button data-search-open class="rounded-xl border border-white/35 px-5 py-3 font-bold hover:bg-white/10">Tenho uma dúvida</button>
+          <button data-search-open class="cursor-pointer rounded-xl border border-white/35 px-5 py-3 font-bold hover:bg-white/10">Tenho uma dúvida</button>
         </div>
       </div>
     </section>
@@ -35,7 +41,17 @@ const atalhos = [
     <section class="container-page py-12">
       <p class="eyebrow">O que você precisa resolver hoje?</p>
       <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {atalhos.map(([indice, texto, href]) => <a href={comBase(href)} class="card flex items-center gap-4 p-4 font-bold"><span class="guide-index" aria-hidden="true">{indice}</span><span>{texto}</span><span class="ml-auto text-forest" aria-hidden="true">→</span></a>)}
+        {atalhos.map((atalho) => <a href={comBase(atalho.href)} class="card flex items-center gap-4 p-4 font-bold"><span class="guide-index" aria-hidden="true"><Icon nome={atalho.icone} /></span><span>{atalho.texto}</span><Icon nome="avancar" classe="ml-auto text-forest" /></a>)}
+      </div>
+    </section>
+
+    <section class="border-y border-blue-950/10 bg-white py-12">
+      <div class="container-page">
+        <p class="eyebrow">A vida no campus em três eixos</p>
+        <h2 class="mt-2 max-w-2xl text-3xl font-black text-forest-dark">Resolva o essencial antes de sair de casa</h2>
+        <div class="mt-6 grid gap-4 lg:grid-cols-3">
+          {eixos.map((eixo) => <a href={comBase(eixo.href)} class="card group"><span class="section-icon"><Icon nome={eixo.icone} /></span><h3 class="mt-4 text-xl font-extrabold text-forest-dark group-hover:text-forest">{eixo.titulo}</h3><p class="mt-2 leading-6 text-ink/70">{eixo.texto}</p><span class="mt-4 flex items-center gap-2 font-bold text-forest">Explorar <Icon nome="avancar" /></span></a>)}
+        </div>
       </div>
     </section>
 
@@ -43,7 +59,7 @@ const atalhos = [
       <div class="container-page">
         <div class="flex flex-wrap items-end justify-between gap-3"><div><p class="eyebrow">Para começar</p><h2 class="mt-1 text-3xl font-black text-forest-dark">Guias mais acessados</h2></div><a class="font-bold text-forest underline underline-offset-4" href={comBase('guias')}>Ver todos os guias</a></div>
         <div class="mt-6 grid gap-4 md:grid-cols-3">
-          {destaques.map((guia) => <a href={comBase(`guia/${guia.id}`)} class="card group"><span class="guide-index" aria-hidden="true">{guia.data.icone}</span><h3 class="mt-4 text-xl font-extrabold text-forest-dark group-hover:text-forest">{guia.data.titulo}</h3><p class="mt-2 leading-6 text-ink/70">{guia.data.resumo}</p><span class="mt-4 block font-bold text-forest">Ler guia →</span></a>)}
+          {destaques.map((guia) => <a href={comBase(`guia/${guia.id}`)} class="card group"><span class="guide-index" aria-hidden="true"><Icon nome={guia.data.icone} /></span><h3 class="mt-4 text-xl font-extrabold text-forest-dark group-hover:text-forest">{guia.data.titulo}</h3><p class="mt-2 leading-6 text-ink/70">{guia.data.resumo}</p><span class="mt-4 flex items-center gap-2 font-bold text-forest">Ler guia <Icon nome="avancar" /></span></a>)}
         </div>
       </div>
     </section>

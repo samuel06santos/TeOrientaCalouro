@@ -6,8 +6,8 @@
   "start_url": "/TeOrientaCalouro/",
   "scope": "/TeOrientaCalouro/",
   "display": "standalone",
-  "background_color": "#f7f9f5",
-  "theme_color": "#0f6b54",
+  "background_color": "#f7f9fd",
+  "theme_color": "#062d5d",
   "icons": [
     { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
     { "src": "icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }

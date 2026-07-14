@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Icon from '../components/Icon.astro';
+import MapaServicos from '../components/MapaServicos.astro';
+import Search from '../components/Search.astro';
+import { fonteAcessoRu, fonteCardapio, fonteRu, passosAcessoRu, pontosAlimentacao, unidadesRu } from '../data/alimentacao';
+
+const dataHoje = new Intl.DateTimeFormat('pt-BR', {
+  dateStyle: 'full',
+  timeZone: 'America/Belem',
+}).format(new Date());
+---
+<BaseLayout title="Alimentação no campus | TeOrientaCalouro" description="Restaurante Universitário, cardápio, acesso e pontos de alimentação no Campus Guamá da UFPA.">
+  <Header />
+  <main id="conteudo">
+    <section class="bg-forest-dark py-12 text-white sm:py-16">
+      <div class="container-page">
+        <span class="section-icon bg-white/10 text-white"><Icon nome="alimentacao" /></span>
+        <p class="eyebrow mt-5 text-white/75">Alimentação</p>
+        <h1 class="mt-2 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">Organize suas refeições no campus</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-8 text-white/80">Consulte o cardápio oficial, entenda o acesso ao RU e encontre alternativas de alimentação próximas aos institutos.</p>
+      </div>
+    </section>
+
+    <section class="container-page py-12">
+      <div class="grid gap-6 lg:grid-cols-[1fr_.9fr]">
+        <div>
+          <p class="eyebrow">Restaurante Universitário</p>
+          <h2 class="mt-2 text-3xl font-black text-forest-dark">Unidades e horários</h2>
+          <div class="mt-5 grid gap-4 sm:grid-cols-2">
+            {unidadesRu.map((unidade) => (
+              <article class="card">
+                <span class="section-icon"><Icon nome="alimentacao" /></span>
+                <p class="mt-4 text-sm font-bold text-forest">Setor {unidade.setor}</p>
+                <h3 class="mt-1 text-xl font-extrabold text-forest-dark">{unidade.nome}</h3>
+                <p class="mt-3 flex items-start gap-2 leading-6 text-ink/75"><Icon nome="horario" classe="mt-1 text-forest" /> <span>{unidade.horario}</span></p>
+                <a class="mt-4 inline-flex items-center gap-2 font-bold text-forest underline underline-offset-2" href={unidade.rota} target="_blank" rel="noreferrer">Abrir rota <Icon nome="avancar" /></a>
+              </article>
+            ))}
+          </div>
+          <p class="status-note mt-4"><strong>Horário de referência:</strong> publicado pela UFPA em janeiro de 2022. Comunicados da PROAES podem alterar unidade, turno ou funcionamento; confirme antes de sair.</p>
+        </div>
+
+        <aside class="rounded-2xl border border-red-200 bg-red-50 p-6 sm:p-7">
+          <div class="flex items-center gap-3">
+            <span class="section-icon bg-white text-sun"><Icon nome="calendario" /></span>
+            <div><p class="text-sm font-bold text-red-900">Cardápio diário</p><h2 class="text-2xl font-black text-red-950">Cardápio de hoje</h2></div>
+          </div>
+          <p class="mt-5 capitalize font-bold text-red-950">{dataHoje}</p>
+          <p class="mt-3 leading-7 text-red-950/80">O cardápio muda diariamente. Como a UFPA não oferece uma API pública estável para sincronização, o TeOrientaCalouro abre a visualização oficial e não reproduz refeições que possam estar desatualizadas.</p>
+          <a class="mt-6 inline-flex items-center gap-2 rounded-xl bg-sun px-5 py-3 font-extrabold text-white hover:bg-red-700" href={fonteCardapio} target="_blank" rel="noreferrer">Ver cardápio oficial de hoje <Icon nome="avancar" /></a>
+          <p class="mt-3 text-sm leading-6 text-red-950/70">Se o cardápio não aparecer, consulte os comunicados da PROAES antes de ir ao RU.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="border-y border-blue-950/10 bg-white py-12">
+      <div class="container-page">
+        <p class="eyebrow">Documentação e acesso</p>
+        <h2 class="mt-2 text-3xl font-black text-forest-dark">Como se preparar para usar o RU</h2>
+        <p class="mt-3 max-w-3xl leading-7 text-ink/75">O acesso digital foi implantado com cartão pessoal e créditos vinculados. Os procedimentos podem ser ajustados pela Universidade, por isso leve também identificação e comprovante de vínculo.</p>
+        <ol class="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {passosAcessoRu.map((passo) => (
+            <li class="card list-none">
+              <span class="section-icon"><Icon nome={passo.icone} /></span>
+              <h3 class="mt-4 text-lg font-extrabold text-forest-dark">{passo.titulo}</h3>
+              <p class="mt-2 leading-6 text-ink/70">{passo.texto}</p>
+            </li>
+          ))}
+        </ol>
+        <a class="mt-5 inline-flex items-center gap-2 font-bold text-forest underline underline-offset-2" href={fonteAcessoRu} target="_blank" rel="noreferrer">Ler orientação institucional sobre o acesso digital <Icon nome="avancar" /></a>
+      </div>
+    </section>
+
+    <section class="container-page py-12">
+      <p class="eyebrow">Onde comer</p>
+      <h2 class="mt-2 text-3xl font-black text-forest-dark">RU, cantinas e pontos de lanche</h2>
+      <p class="mt-3 max-w-3xl leading-7 text-ink/75">Os pontos comerciais são colaborativos e podem mudar de nome, horário ou funcionamento. Use o mapa para localizar e confirme presencialmente.</p>
+      <div class="mt-7"><MapaServicos id="mapa-alimentacao" pontos={pontosAlimentacao} rotulo="Mapa de restaurantes, cantinas e pontos de lanche no Campus Guamá" /></div>
+      <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {pontosAlimentacao.filter(({ categoria }) => categoria !== 'Restaurante Universitário').map((ponto) => (
+          <article class="rounded-xl border border-blue-950/10 bg-white p-4">
+            <p class="text-sm font-bold text-forest">{ponto.categoria} · Setor {ponto.setor}</p>
+            <h3 class="mt-1 font-extrabold text-forest-dark">{ponto.nome}</h3>
+            <p class="mt-2 text-sm leading-6 text-ink/70">{ponto.horario}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container-page pb-4">
+      <div class="status-note"><strong>Fontes:</strong> <a class="font-bold text-forest underline" href={fonteRu} target="_blank" rel="noreferrer">horários publicados pela UFPA</a>, <a class="font-bold text-forest underline" href={fonteCardapio} target="_blank" rel="noreferrer">SIGAEST/PROAES para o cardápio</a> e OpenStreetMap para pontos comerciais. Revisado em 13 de julho de 2026.</div>
+    </section>
+  </main>
+  <Footer />
+  <Search />
+</BaseLayout>

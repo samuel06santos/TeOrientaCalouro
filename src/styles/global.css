@@ -23,4 +23,6 @@ body { @apply bg-paper text-ink antialiased; }
 .prose-guide ol { @apply list-decimal; }
 .prose-guide a { @apply font-semibold text-forest underline decoration-sun decoration-2 underline-offset-2; }
 .brand-pattern { background-image: radial-gradient(circle at 90% 10%, rgb(255 255 255 / 0.16) 0 2px, transparent 2.5px), linear-gradient(135deg, transparent 0 47%, rgb(213 38 61 / 0.38) 47% 49%, transparent 49% 100%); background-size: 22px 22px, auto; }
-.guide-index { @apply grid h-11 w-11 shrink-0 place-items-center rounded-full bg-blue-50 text-sm font-black tracking-wide text-forest; }
+.guide-index { @apply grid h-11 w-11 shrink-0 place-items-center rounded-full bg-blue-50 text-xl text-forest; }
+.section-icon { @apply grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-blue-50 text-xl text-forest; }
+.status-note { @apply rounded-xl border border-blue-950/10 bg-blue-50 p-4 text-sm leading-6 text-ink/80; }

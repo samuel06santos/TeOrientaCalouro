@@ -1,7 +1,7 @@
 ---
 titulo: "Acolhimento, segurança e situações urgentes"
 resumo: "Canais de apoio e orientações para buscar ajuda com responsabilidade."
-icone: "07"
+icone: "seguranca"
 ordem: 7
 destaque: false
 atualizadoEm: "13 de julho de 2026"

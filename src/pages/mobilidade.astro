@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Icon from '../components/Icon.astro';
+import MapaServicos from '../components/MapaServicos.astro';
+import Search from '../components/Search.astro';
+import { paradasCircular, regrasCircular, tracadoCircular } from '../data/mobilidade';
+
+const fonteOficial = 'https://ufpa.br/campus-guama-conheca-os-principais-acessos-da-cidade-universitaria-da-ufpa/';
+const setores = ['Básico', 'Profissional', 'Saúde'];
+---
+<BaseLayout title="Mobilidade interna | TeOrientaCalouro" description="Rota, paradas e regras de utilização do ônibus Circular no Campus Guamá da UFPA.">
+  <Header />
+  <main id="conteudo">
+    <section class="bg-forest-dark py-12 text-white sm:py-16">
+      <div class="container-page">
+        <span class="section-icon bg-white/10 text-white"><Icon nome="mobilidade" /></span>
+        <p class="eyebrow mt-5 text-white/75">Mobilidade interna</p>
+        <h1 class="mt-2 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">Entenda o Circular da UFPA</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-8 text-white/80">Veja as paradas sinalizadas, acompanhe o percurso de referência e saiba como utilizar o transporte dentro do campus.</p>
+      </div>
+    </section>
+
+    <section class="container-page py-12">
+      <p class="eyebrow">Como funciona</p>
+      <h2 class="mt-2 text-3xl font-black text-forest-dark">Regras essenciais</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {regrasCircular.map((regra) => (
+          <article class="card">
+            <span class="section-icon"><Icon nome={regra.icone} /></span>
+            <h3 class="mt-4 text-lg font-extrabold text-forest-dark">{regra.titulo}</h3>
+            <p class="mt-2 leading-6 text-ink/70">{regra.texto}</p>
+          </article>
+        ))}
+      </div>
+      <div class="status-note mt-5"><strong>Horário:</strong> não foi encontrado um quadro oficial atualizado de partidas em 2026. Planeje uma margem de tempo e confirme com a Prefeitura Multicampi ou na sinalização do terminal. O site não reaproveita como atual o horário histórico de 7h às 22h.</div>
+    </section>
+
+    <section class="border-y border-blue-950/10 bg-white py-12">
+      <div class="container-page">
+        <p class="eyebrow">Sentido do percurso</p>
+        <h2 class="mt-2 text-3xl font-black text-forest-dark">Do Básico ao Setor Saúde</h2>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+          {['Setor Básico', 'Setor Profissional', 'Setor Saúde', 'PCT Guamá'].map((setor, indice, lista) => (
+            <>
+              <div class="flex-1 rounded-xl border border-blue-950/10 bg-paper p-4 text-center font-extrabold text-forest-dark">{setor}</div>
+              {indice < lista.length - 1 && <Icon nome="avancar" classe="self-center text-xl text-sun sm:rotate-0 rotate-90" />}
+            </>
+          ))}
+        </div>
+        <p class="mt-4 max-w-3xl text-sm leading-6 text-ink/70">Essa ordem resume as áreas atendidas divulgadas pela UFPA. No mapa, a linha tracejada conecta os pontos cadastrados e funciona como orientação visual; desvios operacionais e o sentido do veículo podem variar.</p>
+        <div class="mt-7"><MapaServicos id="mapa-circular" pontos={paradasCircular} linha={tracadoCircular} rotulo="Mapa da rota de referência e das paradas do Circular da UFPA" /></div>
+      </div>
+    </section>
+
+    <section class="container-page py-12">
+      <p class="eyebrow">Pontos de parada</p>
+      <h2 class="mt-2 text-3xl font-black text-forest-dark">Paradas por setor</h2>
+      <div class="mt-7 grid gap-6 lg:grid-cols-3">
+        {setores.map((setor) => (
+          <section class="rounded-2xl border border-blue-950/10 bg-white p-5">
+            <h3 class="flex items-center gap-3 text-xl font-extrabold text-forest-dark"><Icon nome="local" classe="text-sun" /> Setor {setor}</h3>
+            <ul class="mt-4 divide-y divide-blue-950/10">
+              {paradasCircular.filter((parada) => parada.setor === setor).map((parada) => (
+                <li class="py-3"><a class="font-bold text-forest hover:underline" href={parada.rota} target="_blank" rel="noreferrer">{parada.nome}</a><p class="mt-1 text-sm leading-5 text-ink/65">{parada.descricao}</p></li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+      <p class="status-note mt-6"><strong>Precisão dos pontos:</strong> coordenadas do OpenStreetMap verificadas em 13 de julho de 2026. Embarque somente onde houver placa do Circular; a sinalização física prevalece sobre o mapa.</p>
+      <a class="mt-5 inline-flex items-center gap-2 font-bold text-forest underline underline-offset-2" href={fonteOficial} target="_blank" rel="noreferrer">Ler orientação oficial da UFPA sobre o Circular <Icon nome="avancar" /></a>
+    </section>
+  </main>
+  <Footer />
+  <Search />
+</BaseLayout>

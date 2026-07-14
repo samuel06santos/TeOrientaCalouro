@@ -1,7 +1,7 @@
 ---
 titulo: "Biblioteca, estudos e pesquisa"
 resumo: "Use o acervo, espaços de estudo e recursos digitais com autonomia."
-icone: "05"
+icone: "biblioteca"
 ordem: 5
 destaque: false
 atualizadoEm: "13 de julho de 2026"

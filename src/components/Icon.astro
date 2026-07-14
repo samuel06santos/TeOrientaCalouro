@@ -1,0 +1,88 @@
+---
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import {
+  faArrowRight,
+  faBookOpen,
+  faBuildingColumns,
+  faBusSimple,
+  faCalendarDays,
+  faCircleInfo,
+  faClock,
+  faGraduationCap,
+  faHeart,
+  faIdCard,
+  faLandmark,
+  faLocationDot,
+  faMapLocationDot,
+  faMoneyBillTransfer,
+  faRoute,
+  faShieldHeart,
+  faShop,
+  faTicket,
+  faToilet,
+  faTrainSubway,
+  faUtensils,
+  faVault,
+  faWheelchairMove,
+  faWifi,
+} from '@fortawesome/free-solid-svg-icons';
+
+// Mantemos um conjunto pequeno e nomeado para não enviar a biblioteca inteira ao navegador.
+const icones = {
+  alimentacao: faUtensils,
+  banco: faBuildingColumns,
+  biblioteca: faBookOpen,
+  caixa: faVault,
+  calendario: faCalendarDays,
+  contato: faLandmark,
+  dinheiro: faMoneyBillTransfer,
+  estudante: faGraduationCap,
+  horario: faClock,
+  informacao: faCircleInfo,
+  local: faLocationDot,
+  mapa: faMapLocationDot,
+  mobilidade: faBusSimple,
+  passagem: faTicket,
+  rota: faRoute,
+  seguranca: faShieldHeart,
+  suporte: faHeart,
+  terminal: faTrainSubway,
+  documento: faIdCard,
+  comercio: faShop,
+  banheiro: faToilet,
+  acessibilidade: faWheelchairMove,
+  wifi: faWifi,
+  avancar: faArrowRight,
+} as const;
+
+type NomeIcone = keyof typeof icones;
+interface Props {
+  nome: NomeIcone | string;
+  classe?: string;
+  rotulo?: string;
+}
+
+const { nome, classe = '', rotulo } = Astro.props;
+const definicao = icones[nome as NomeIcone] ?? faCircleInfo;
+const svg = icon(definicao).html.join('');
+---
+<span
+  class:list={['site-icon', classe]}
+  aria-hidden={rotulo ? undefined : 'true'}
+  role={rotulo ? 'img' : undefined}
+  aria-label={rotulo}
+  set:html={svg}
+/>
+
+<style>
+  .site-icon {
+    display: inline-grid;
+    place-items: center;
+    line-height: 1;
+  }
+
+  .site-icon :global(svg) {
+    width: 1em;
+    height: 1em;
+  }
+</style>

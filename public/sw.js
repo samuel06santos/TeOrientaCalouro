@@ -1,6 +1,6 @@
-const CACHE = 'teorientacalouro-v2';
+const CACHE = 'teorientacalouro-v3';
 const BASE = self.registration.scope;
-const APP_SHELL = [BASE, `${BASE}manifest.webmanifest`, `${BASE}icon.svg`];
+const APP_SHELL = [BASE, `${BASE}alimentacao.html`, `${BASE}mobilidade.html`, `${BASE}infraestrutura.html`, `${BASE}manifest.webmanifest`, `${BASE}icon.svg`];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(APP_SHELL)));

@@ -9,7 +9,15 @@ Guia estático, responsivo e acessível para orientar calouros da UFPA. O projet
 - Markdown para os guias e TypeScript para dados de contatos e locais;
 - Leaflet + OpenStreetMap para o mapa;
 - Fuse.js para busca local;
+- Font Awesome para os ícones de interface;
 - Manifesto e Service Worker para instalação como PWA.
+
+## Áreas principais
+
+- Alimentação: unidades e acesso ao RU, cardápio oficial e pontos de lanche;
+- Mobilidade: trajeto de referência, paradas e regras do Circular;
+- Infraestrutura: bancos, caixas, bibliotecas e secretarias com horários;
+- Guias: primeiros passos, SIGAA, conta institucional, permanência e vida acadêmica.
 
 ## Desenvolvimento
 
@@ -31,6 +39,9 @@ Os arquivos prontos para publicação ficam em `dist/`. Eles podem ser servidos 
 - Guias: `src/content/guias/*.md`;
 - Contatos: `src/data/contatos.ts`;
 - Pontos do mapa: `src/data/locais.ts`;
+- Alimentação e comércio: `src/data/alimentacao.ts`;
+- Circular e paradas: `src/data/mobilidade.ts`;
+- Bancos, bibliotecas e secretarias: `src/data/infraestrutura.ts`;
 - Links compartilhados: `src/data/links.ts`.
 
 Ao atualizar prazos, valores, horários ou editais, altere também a data de revisão no frontmatter do guia. O TeOrientaCalouro deve apontar para fontes oficiais e nunca substituir os canais da UFPA.

@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Icon from '../components/Icon.astro';
+import MapaServicos from '../components/MapaServicos.astro';
+import Search from '../components/Search.astro';
+import { categoriasInfraestrutura, pontosInfraestrutura } from '../data/infraestrutura';
+
+const iconeCategoria = (categoria: string) => {
+  if (categoria.includes('Biblioteca')) return 'biblioteca';
+  if (categoria.includes('Caixa')) return 'caixa';
+  if (categoria.includes('Banco')) return 'banco';
+  return 'contato';
+};
+---
+<BaseLayout title="Infraestrutura e serviços | TeOrientaCalouro" description="Diretório de bancos, caixas eletrônicos, bibliotecas e secretarias no Campus Guamá.">
+  <Header />
+  <main id="conteudo">
+    <section class="bg-forest-dark py-12 text-white sm:py-16">
+      <div class="container-page">
+        <span class="section-icon bg-white/10 text-white"><Icon nome="banco" /></span>
+        <p class="eyebrow mt-5 text-white/75">Infraestrutura</p>
+        <h1 class="mt-2 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">Serviços úteis em um só diretório</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-8 text-white/80">Localize bancos, caixas eletrônicos, bibliotecas e atendimentos acadêmicos sem fazer deslocamentos desnecessários.</p>
+      </div>
+    </section>
+
+    <section class="container-page py-12">
+      <p class="eyebrow">Mapa de serviços</p>
+      <h2 class="mt-2 text-3xl font-black text-forest-dark">Veja o que fica mais perto</h2>
+      <div class="mt-7"><MapaServicos id="mapa-infraestrutura" pontos={pontosInfraestrutura} rotulo="Mapa de bancos, caixas eletrônicos, bibliotecas e secretarias no Campus Guamá" /></div>
+    </section>
+
+    <section class="border-y border-blue-950/10 bg-white py-12">
+      <div class="container-page">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div><p class="eyebrow">Diretório central</p><h2 class="mt-2 text-3xl font-black text-forest-dark">Encontre um serviço</h2></div>
+          <p data-contagem class="text-sm font-bold text-forest" aria-live="polite">{pontosInfraestrutura.length} serviços exibidos</p>
+        </div>
+        <div class="mt-6 grid gap-3 sm:grid-cols-[1fr_16rem]">
+          <label><span class="sr-only">Buscar serviço</span><input data-filtro-texto class="w-full rounded-xl border border-blue-950/20 bg-white px-4 py-3" type="search" placeholder="Busque por banco, biblioteca ou setor" /></label>
+          <label><span class="sr-only">Filtrar por categoria</span><select data-filtro-categoria class="w-full rounded-xl border border-blue-950/20 bg-white px-4 py-3">{categoriasInfraestrutura.map((categoria) => <option value={categoria}>{categoria}</option>)}</select></label>
+        </div>
+
+        <div data-lista-servicos class="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {pontosInfraestrutura.map((ponto) => (
+            <article data-servico data-categoria={ponto.categoria} data-busca={`${ponto.nome} ${ponto.categoria} ${ponto.setor} ${ponto.descricao}`} class="card flex flex-col">
+              <span class="section-icon"><Icon nome={iconeCategoria(ponto.categoria)} /></span>
+              <p class="mt-4 text-sm font-bold text-forest">{ponto.categoria} · Setor {ponto.setor}</p>
+              <h3 class="mt-1 text-xl font-extrabold text-forest-dark">{ponto.nome}</h3>
+              <p class="mt-2 leading-6 text-ink/70">{ponto.descricao}</p>
+              <p class="mt-4 flex items-start gap-2 rounded-lg bg-paper p-3 text-sm leading-6"><Icon nome="horario" classe="mt-1 text-forest" /><span><strong>Horário:</strong> {ponto.horario}</span></p>
+              <div class="mt-auto flex flex-wrap gap-4 pt-5 text-sm font-bold text-forest underline underline-offset-2">
+                <a href={ponto.rota} target="_blank" rel="noreferrer">Abrir rota</a>
+                {ponto.url && <a href={ponto.url} target="_blank" rel="noreferrer">Ver fonte</a>}
+              </div>
+            </article>
+          ))}
+        </div>
+        <p data-sem-resultados class="mt-6 hidden rounded-xl bg-paper p-4 text-center text-ink/70">Nenhum serviço corresponde aos filtros.</p>
+      </div>
+    </section>
+
+    <section class="container-page py-10">
+      <div class="status-note"><strong>Antes de se deslocar:</strong> horários de bibliotecas, CIAC e ICS vêm dos canais institucionais consultados em 13 de julho de 2026. Agências bancárias e caixas não têm horário institucional publicado pela UFPA; use o canal do banco para confirmar.</div>
+    </section>
+  </main>
+  <Footer />
+  <Search />
+  <script>
+  const campoTexto = document.querySelector<HTMLInputElement>('[data-filtro-texto]');
+  const campoCategoria = document.querySelector<HTMLSelectElement>('[data-filtro-categoria]');
+  const servicos = [...document.querySelectorAll<HTMLElement>('[data-servico]')];
+  const contagem = document.querySelector<HTMLElement>('[data-contagem]');
+  const semResultados = document.querySelector<HTMLElement>('[data-sem-resultados]');
+
+  const normalizar = (texto: string) => texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR');
+  const filtrar = () => {
+    const termo = normalizar(campoTexto?.value || '');
+    const categoria = campoCategoria?.value || 'Todos';
+    let visiveis = 0;
+    servicos.forEach((servico) => {
+      const correspondeTexto = normalizar(servico.dataset.busca || '').includes(termo);
+      const correspondeCategoria = categoria === 'Todos' || servico.dataset.categoria === categoria;
+      const visivel = correspondeTexto && correspondeCategoria;
+      servico.classList.toggle('hidden', !visivel);
+      if (visivel) visiveis += 1;
+    });
+    if (contagem) contagem.textContent = `${visiveis} ${visiveis === 1 ? 'serviço exibido' : 'serviços exibidos'}`;
+    semResultados?.classList.toggle('hidden', visiveis !== 0);
+  };
+
+  campoTexto?.addEventListener('input', filtrar);
+  campoCategoria?.addEventListener('change', filtrar);
+  </script>
+</BaseLayout>

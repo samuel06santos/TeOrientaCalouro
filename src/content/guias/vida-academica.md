@@ -1,7 +1,7 @@
 ---
 titulo: "Vida acadêmica: o vocabulário da universidade"
 resumo: "Créditos, pré-requisitos, trancamento, extensão e outros termos explicados."
-icone: "06"
+icone: "estudante"
 ordem: 6
 destaque: false
 atualizadoEm: "13 de julho de 2026"
