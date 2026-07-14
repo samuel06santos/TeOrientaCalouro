@@ -1,4 +1,4 @@
-const CACHE = 'teorientacalouro-v1';
+const CACHE = 'teorientacalouro-v2';
 const APP_SHELL = ['/', '/manifest.webmanifest', '/icon.svg'];
 
 self.addEventListener('install', (event) => {

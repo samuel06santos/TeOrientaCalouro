@@ -1,1 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" rx="52" fill="#f7f9fd"/><path d="M27 160c48-54 117-64 202-46-55 38-127 48-202 46Z" fill="#07559b"/><path d="M27 160c52-25 118-32 202-46-51 41-124 57-202 46Z" fill="#d5263d"/><path d="M38 69h180l-90 62Z" fill="#fff"/><path d="m128 90 7 17 18 1-14 11 5 18-17-10-16 10 5-18-14-11 18-1Z" fill="#07559b"/><path d="M72 170c8-38 41-55 70-35 24 17 18 54-16 62-32 7-59-5-54-27Z" fill="#fff"/><path d="M78 177c21-20 42-22 59-10-17 21-37 28-59 10Z" fill="#07559b"/><path d="M83 181c18-7 33-7 49-4" fill="none" stroke="#d5263d" stroke-width="7" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="titulo descricao">
+  <title id="titulo">Símbolo do TeOrientaCalouro</title>
+  <desc id="descricao">Rosa dos ventos formada por folhas azuis, vermelhas e brancas, com uma águia guianense estilizada ao centro.</desc>
+  <rect width="256" height="256" rx="52" fill="#fff"/>
+  <circle cx="128" cy="128" r="108" fill="#062d5d"/>
+  <circle cx="128" cy="128" r="92" fill="#f7f9fd" stroke="#fff" stroke-width="4"/>
+
+  <!-- Folhas cardeais: cada ponta também funciona como direção da rosa dos ventos. -->
+  <path d="M128 22C151 50 153 80 128 111C103 80 105 50 128 22Z" fill="#d5263d"/>
+  <path d="M234 128C206 151 176 153 145 128C176 103 206 105 234 128Z" fill="#07559b"/>
+  <path d="M128 234C105 206 103 176 128 145C153 176 151 206 128 234Z" fill="#07559b"/>
+  <path d="M22 128C50 105 80 103 111 128C80 153 50 151 22 128Z" fill="#d5263d"/>
+
+  <!-- Folhas intermediárias deixam a leitura de bússola mais evidente. -->
+  <g fill="#fff" stroke="#07559b" stroke-width="4" stroke-linejoin="round">
+    <path d="M53 53C76 55 92 68 105 106C68 92 55 76 53 53Z"/>
+    <path d="M203 53C201 76 188 92 150 105C164 68 180 55 203 53Z"/>
+  </g>
+  <g fill="#fff" stroke="#d5263d" stroke-width="4" stroke-linejoin="round">
+    <path d="M203 203C180 201 164 188 151 150C188 164 201 180 203 203Z"/>
+    <path d="M53 203C55 180 68 164 106 151C92 188 76 201 53 203Z"/>
+  </g>
+
+  <circle cx="128" cy="128" r="47" fill="#fff" stroke="#062d5d" stroke-width="6"/>
+
+  <!-- Águia guianense em silhueta simplificada, referência central do brasão da UFPA. -->
+  <g fill="#062d5d">
+    <path d="M126 122C115 110 104 102 88 95L91 106L76 100L84 114L68 113L82 126L68 131C84 139 99 141 115 136L126 132Z"/>
+    <path d="M130 122C141 110 152 102 168 95L165 106L180 100L172 114L188 113L174 126L188 131C172 139 157 141 141 136L130 132Z"/>
+    <path d="M116 119C119 111 125 107 132 109C139 110 143 116 142 123C150 124 155 128 159 133L146 134C142 145 136 153 128 162C120 153 114 145 110 134L97 133C102 127 108 123 116 119Z"/>
+    <path d="M132 109C138 102 147 102 153 108L163 111L153 117C148 119 143 118 140 115Z"/>
+    <path d="M120 157L114 170L122 165L128 173L134 165L142 170L136 157Z"/>
+  </g>
+  <circle cx="147" cy="109" r="2.6" fill="#fff"/>
+  <path d="M153 108L165 112L153 117Z" fill="#d5263d"/>
+</svg>
